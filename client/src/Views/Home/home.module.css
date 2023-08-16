@@ -4,25 +4,6 @@ body {
   padding: 0;
   height: 100vh; 
 }
-/* .videobackground {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -1;
-  
-} */
-.imagebackground {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vh;
-  height: 100vh;
-  object-fit: cover;
-  z-index: -1;
-}
 
   .container {
    
@@ -50,10 +31,10 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #70e5f7;
+    background-color: #687c68;
     padding: 5px;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgb(221, 220, 243);
+    box-shadow: 0 3px 4px rgb(0, 255, 8);
     margin-left: 50px;
     margin-right: 50px;
   }
@@ -80,11 +61,11 @@ body {
   .filters select {
     padding: 8px;
     font-size: 15px;
-    border: 2px solid #272aee;
+    border: 2px solid #bbff00;
     border-radius: 4px;
-    background-color: #0c0c0c;
+    background-color: #c6d7c7;
     font-family: 'Fuente';
-    color: #272aee;
+    color: #000000;
   }
   
   .filters select:hover {
@@ -94,7 +75,7 @@ body {
   /* Estilos para las opciones de los selects */
   .filters select option {
     font-size: 15px;
-    color: #e7ed38;
+    color: #ac1675;
     font-family: 'Fuente';
     background-color: #77797a;
   

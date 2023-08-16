@@ -7,21 +7,29 @@ import style from "./detail.module.css";
 
 export default function Detail(props) {
   const dispatch = useDispatch();
+
+  //obtiene el id por parametro de ruta
   const { id } = props.match.params;
+
+
+  //estado local que controla la carga de los detalles del pokemon
   const [state, setState] = useState({
     loading: true,
   });
 
 
+  //efecto de React que se ejecuta cuando el componente se monta
   useEffect(() => {
     dispatch(getIdPokemon(id)); 
 
-    
-    setTimeout(() => {
-      setState({ ...state, loading: false });
-    }, 2000);
-  }, [dispatch, id]);
 
+   //simula una carga de 2 segundos antes de mostrar los detalles del pokemon 
+    setTimeout(() => {
+      setState((prevState) => ({ ...prevState, loading: false }));
+    }, 2000);
+  }, [dispatch, id, state]);
+
+  //obtiene los detalles del pokemon del estado global
   const myPokemon = useSelector((state) => state.detail);
 
   return (
@@ -38,19 +46,20 @@ export default function Detail(props) {
           <div>
             <h1 className={style.detailh1 }>{myPokemon.name}</h1>
             <div detailimg >
-            {myPokemon.img ? (
-              <img src={myPokemon.img} alt="" />
+            {myPokemon.image ? (
+              <img src={myPokemon.image} alt="" />
             ) : (
               <img src={Pokemon} alt="Imagen por defecto" />
             )}</div>
             <div className={style.detailp }>
-            <p>HP: {myPokemon.hp}</p>
+            <p>Life: {myPokemon.life}</p>
             <p>Attack: {myPokemon.attack}</p>
             <p>Defense: {myPokemon.defense}</p>
             <p>Speed: {myPokemon.speed}</p>
             <p>Height: {myPokemon.height}</p>
             <p>Weight: {myPokemon.weight}</p>
             <div className={style.detailp }>
+              <p>Types:</p>
               {myPokemon.types?.map((t, index) => (
                 <span key={index}>
                   {t.name ? (

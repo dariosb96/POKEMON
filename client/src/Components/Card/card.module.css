@@ -1,7 +1,7 @@
 .card {
-  background-color: #3f3e3e;
+  background-color: #272e27;
   border-radius: 8px;
-  box-shadow: 0 5px 10px #d514df;
+  box-shadow: 0 5px 10px #11d518;
   padding: 10px;
   width: 100%;
   box-sizing: border-box;
@@ -15,7 +15,7 @@
 
 .card:hover {
   transform: scale(1.05);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.997);
 }
 
 .card h3 {
@@ -48,11 +48,11 @@
 .card .types span {
   display: inline-block;
   padding: 2px 8px;
-  background-color: #dadae8;
+  background-color: #92c598;
   border-radius: 4px;
   margin-right: 5px;
   font-size: 12px;
-  color: #e3d5d5;
+  color: #0d451f;
   font-family: "Fuente";
 }
 

@@ -24,8 +24,8 @@
     display: inline-block;
     padding: 5px 10px;
     text-decoration: none;
-    color: #ffffff; /* Color del texto */
-    background-color: #04ff00; /* Color de fondo */
+    color: #000000; /* Color del texto */
+    background-color: #26ff00; /* Color de fondo */
     border-radius: 10px;
     font-weight: bold;
     font-size: 18px;

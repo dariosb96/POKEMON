@@ -1,35 +1,24 @@
 
-const { getAllPokemons } = require("../controllers/getAll_controller");
+const { finalPokemons, getAllPokemons } = require("../controllers/getAll_controller");
 
+//Creacion del handler para obtener los pokemons
 const getPokemonsHandler = async (req, res) => {
-   const {name} = req.query;
+    const {name} = req.query
     try {
+        //si la peticion incluye un nombre se invocara al controller con el valor del nombre
         if(name){
-            const response = await getAllPokemons(name);
-            return res.status(200).json(response);
+            const pokeByName = await getAllPokemons(name)
+            return res.status(200).json(pokeByName)
         }
-        const response = await getAllPokemons();
-        return res.status(200).json(response);
-    }catch(error){
-        res.status(400).json({error: error.message });
+        //si la peticion no incluye nombre se traeran todos los pokemons 
+        else{
+            const allPokemon = await getAllPokemons()
+            return res.status(200).json(allPokemon)
+        }
+    } catch (error) {
+        return res.status(400).send({error:error.message})
     }
-}
-
-// const getPokemonsHandler = async (req, res) => {
-//  const {name} = req.query;
-//    try {
-//         if(name ){
-//             const PokemonByname = await getByName(name);
-//             res.status(200).json(PokemonByname);
-//         }else {
-//             const response = await getAllPokemons
-//             res.status(400).json(response);
-//         }
-//     }catch (error) {
-//         res.status(400).json({error: error.message})
-//     }
-// } 
-
+} 
 
 module.exports = {getPokemonsHandler};
   

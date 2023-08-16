@@ -4,21 +4,21 @@ import {postPokemon, getTypes} from "../../Redux/actions";
 import {useDispatch, useSelector} from "react-redux";
 import Validate from "../../Components/Validate/Validate"
 import style from "./create.module.css";
-import Fondo from "../../Imagenes/Fondo.mp4"
 
+
+
+//maneja la creacion de un nuevo Pokemon utilizando redux para gestionar el estado de a app
 export default function Create(){
     const dispatch = useDispatch()
     const history = useHistory()
     const types = useSelector((state) => state.types)
     const [errors,setErrors] = useState({});
    
-
-   
-
+    //estado local para manejar los valores del formulario
     const [input, setInput] = useState({
     name: "",
-    img: "",
-    hp: 0,
+    image: "",
+    life: 0,
     attack: 0,
      defense: 0,
      height: 0,
@@ -27,10 +27,13 @@ export default function Create(){
     types: []
     })
 
+    //se ejecuta cuando el componente se monta
     useEffect(()=>{
         dispatch(getTypes());
     }, [dispatch]);
 
+
+// se encarga de actualizar el estado del formulario a medida que el usuario ingresa información en los campos.
 function handleChange(e){
     const { name, value } = e.target;
     
@@ -39,12 +42,15 @@ setInput({
     [name] : value
 })
 
+//valida que los datos esten correctamente ingresados
 setErrors(Validate({
     ...input,
     [name]: value,
   }));
 }
 
+
+//permite agregar tipos al nuevo Pokémon seleccionándolos desde un menú desplegable.
 function handleSelect(e) {
     const selectedType = e.target.value;
     if (!input.types.includes(selectedType)) {
@@ -54,7 +60,9 @@ function handleSelect(e) {
       });
     }
   }
-  
+
+
+//se activa un boton de creacion cuando el formulario esta totalmente creado  
 function handleSubmit(e) {
     e.preventDefault();
   
@@ -64,8 +72,8 @@ function handleSubmit(e) {
           alert("Pokemon Creado");
           setInput({
             name: "",
-            img: "",
-            hp: "",
+            image: "",
+            life: "",
             attack: 0,
             defense: 0,
             height: 0,
@@ -80,13 +88,15 @@ function handleSubmit(e) {
         });
     }
   }
-  
+
+
+  // funcion encargada de validar que el form este lleno 
   function isFormComplete() {
-    const { name, hp, attack, defense, height, weight, speed } = input;
+    const { name, life, attack, defense, height, weight, speed } = input;
     return (
       name !== "" &&
-      hp >= 1 &&
-      hp <= 100 &&
+      life >= 1 &&
+      life <= 100 &&
       attack >= 20 &&
       attack <= 100 &&
       defense >= 20 &&
@@ -101,6 +111,7 @@ function handleSubmit(e) {
   }
 
 
+// se encarga de borrar algun tipo de pokemon no deseado
 function handleDelete(el){
     setInput({
         ...input,
@@ -110,9 +121,7 @@ function handleDelete(el){
 
 return(
     <div>
-       <video className={style.videobackground } autoPlay loop muted>
-          <source src={Fondo} type="video/mp4" />
-        </video>
+       
         <Link to= "/home"><button className={style.buttonc}>Volver</button></Link>
         <div className={style.contc}>
         <h1 className={style.ch1}>Crea tu Pokemon</h1>
@@ -130,21 +139,21 @@ return(
             <div>
                 <label>Imagen:</label>
                 <input type="text"
-                value={input.img}
-                name= "img"
+                value={input.image}
+                name= "image"
                 onChange={(e)=>handleChange(e)} />
                 
             </div>
             <div>
                 <label>Vida:</label>
                 <input type="number"
-                value={input.hp} 
-                name= "hp"
+                value={input.life} 
+                name= "life"
                 min={1}
                 max={100}
                 onChange={(e)=>handleChange(e)} />
-               {errors.hp && (
-                    <p>{errors.hp}</p>
+               {errors.life && (
+                    <p>{errors.life}</p>
                 )}
             </div>
             <div>
