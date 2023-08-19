@@ -17,7 +17,7 @@ export default function Create(){
     //estado local para manejar los valores del formulario
     const [input, setInput] = useState({
     name: "",
-    image: "",
+    img: "",
     life: 0,
     attack: 0,
      defense: 0,
@@ -72,7 +72,7 @@ function handleSubmit(e) {
           alert("Pokemon Creado");
           setInput({
             name: "",
-            image: "",
+            img: "",
             life: "",
             attack: 0,
             defense: 0,
@@ -95,6 +95,7 @@ function handleSubmit(e) {
     const { name, life, attack, defense, height, weight, speed } = input;
     return (
       name !== "" &&
+      name.length < 15 &&
       life >= 1 &&
       life <= 100 &&
       attack >= 20 &&
@@ -139,8 +140,8 @@ return(
             <div>
                 <label>Imagen:</label>
                 <input type="text"
-                value={input.image}
-                name= "image"
+                value={input.img}
+                name= "img"
                 onChange={(e)=>handleChange(e)} />
                 
             </div>

@@ -44,10 +44,11 @@ export default function Detail(props) {
           <p className={style.detailp }>Loading...</p>
         ) : myPokemon ? (
           <div>
+            <h1>"hola, esto es detail"</h1>
             <h1 className={style.detailh1 }>{myPokemon.name}</h1>
             <div detailimg >
-            {myPokemon.image ? (
-              <img src={myPokemon.image} alt="" />
+            {myPokemon.img ? (
+              <img src={myPokemon.img} alt="" />
             ) : (
               <img src={Pokemon} alt="Imagen por defecto" />
             )}</div>

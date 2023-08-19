@@ -4,11 +4,11 @@ const {Pokemon, Type}= require("../db");
 const createPokemon = async (PokemonData) => {
 
     // Recibe los datos del pokemon por parametros
-    const { name, image, life, attack, defense, speed, height, weight, types } = PokemonData;
+    const { name, img, life, attack, defense, speed, height, weight, types } = PokemonData;
   
     // Crear un nuevo Pokémon en la base de datos
     const newPokemon = await Pokemon.create({
-      name, image, life, attack, defense, speed, height, weight
+      name, img, life, attack, defense, speed, height, weight
     });
   
     // Si se proporcionan tipos, relacionarlos con el nuevo Pokémon

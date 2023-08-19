@@ -13,8 +13,11 @@ import style from "./home.module.css";
 
 export default function Home() {
   const dispatch = useDispatch();
+
+  //obtiene todos los pokemons mediante el estado de Redux.
   const allPokemon = useSelector((state) => state.pokemon);
 
+  //variables de estado para ordenamiento y paginacion
   const[orden, setOrden] = useState("")
   const[attack, setAttack] = useState("")
   const [currentPage, setcurrentPage] = useState(1)
@@ -23,29 +26,36 @@ export default function Home() {
   const indexOfFirstPokemon = indexOfLastPokemon - pokemonPerPage
   const currentPokemon = allPokemon.slice(indexOfFirstPokemon, indexOfLastPokemon)
 
+
+  //funcion para cambiar la pagina actual en la paginacion
   const paginado = (pageNumber) => {
     setcurrentPage(pageNumber);
   };
-  
 
-useEffect(() => {
+
+//// Despachar la acción "getPokemon" cuando el componente se monta o cuando cambia de pagina
+ useEffect(() => {
   dispatch(getPokemon());
 }, [dispatch, currentPage, pokemonPerPage]);
 
 
-
+  // Función para filtrar Pokémon por tipo
 function handleFilterType(e) {
   e.preventDefault();
   dispatch(filterByType(e.target.value));
   setcurrentPage(1);
 }
 
+
+//funcion para filtrar pokemones creados
 function handleFilterCreated(e) {
   e.preventDefault();
   dispatch(filterIfCreated(e.target.value));
   setcurrentPage(1);
 }
 
+
+// función para ordenar Pokémon por nombre
 function handleSort (e){
   e.preventDefault();
   dispatch(orderByname(e.target.value))
@@ -53,6 +63,8 @@ function handleSort (e){
   setOrden(`Ordenado ${e.target.value}`)
 };
 
+
+//función para ordenar Pokémon por ataque
 function handleAttack(e) {
   e.preventDefault();
   dispatch(orderByAttack(e.target.value));
@@ -72,6 +84,7 @@ function handleAttack(e) {
             <span>Tipos</span>
             <select onChange={e => handleFilterType(e)}>
                         <option value='all'>All</option>
+                        <option value='fighting'>Fighting</option>
                         <option value='grass'>Grass</option>
                         <option value='poison'>Poison</option>
                         <option value='fire'>Fire</option>

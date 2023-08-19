@@ -8,12 +8,14 @@ export default function Card({ id, name, img, types }) {
    
     <div className={styles.card}>
       <h3>{name}</h3>
+      <h1>"esto es card"</h1>
       <div className={styles.imgcard}>
       {img ? (
         <img src={img} alt="" />
       ) : (
         <img src={Pokemon} alt="Imagen por defecto" />
-      )}</div>
+      )}
+      </div>
       <div className={styles.types}>
         {types?.map((t, index) => (
           <span key={index}>
