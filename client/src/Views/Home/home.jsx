@@ -137,7 +137,7 @@ function handleAttack(e) {
        
          
         <Link to={`/detail/${props.id}`} key={props.id}>
-          <Card name={props.name} img={props.img } types={props.types} />
+          <Card name={props.name} img={props.img } attack={props.attack} types={props.types} />
        </Link>
 
   ))}

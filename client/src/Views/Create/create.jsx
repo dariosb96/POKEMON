@@ -96,16 +96,16 @@ function handleSubmit(e) {
     return (
       name !== "" &&
       name.length < 15 &&
-      life >= 1 &&
+      life >= 20 &&
       life <= 100 &&
       attack >= 20 &&
       attack <= 100 &&
       defense >= 20 &&
       defense <= 100 &&
       height >= 20 &&
-      height <= 100 &&
+      height <= 950 &&
       weight >= 20 &&
-      weight <= 100 &&
+      weight <= 950 &&
       speed >= 20 &&
       speed <= 950
     );

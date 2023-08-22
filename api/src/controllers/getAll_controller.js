@@ -4,7 +4,7 @@ const { Pokemon, Type } = require("../db");
 // Función para obtener información de la API externa
 const getInfoApi = async () => {
   // Realizar solicitud a la API para obtener la lista de Pokémon
-  const URL = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=100");
+  const URL = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=120");
   
   // Mapear y obtener información detallada de cada Pokémon
   const apiData = await Promise.all(

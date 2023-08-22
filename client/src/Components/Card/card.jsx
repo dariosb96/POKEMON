@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styles from "./card.module.css";
 import Pokemon from "../../Imagenes/Pokemoncreado.png";
 
-export default function Card({ id, name, img, types }) {
+export default function Card({ id, name, img, attack, types }) {
   return (
    
     <div className={styles.card}>

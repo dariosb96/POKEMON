@@ -5,7 +5,8 @@ const initialState = {
   pokemon: [],
   allPokemons: [],
   types: [],
-  detail: []
+  detail: [],
+  
 }
 
 //reducer que maneja los cambios de estado en la app
@@ -19,8 +20,8 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         pokemon: action.payload,
-        allPokemons: action.payload
-      };
+        allPokemons: action.payload,
+          };
 
   //actualiza el estado con la creacion de un pokemon
  case POST_POKEMON:
@@ -36,20 +37,33 @@ const rootReducer = (state = initialState, action) => {
         };
   
    //actualiza el estado con los pokemons filtrados por tipo
- case FILTER_BY_TYPES:{
-      const filtered =
-      action.payload === "all"
-        ? state.allPokemons
-        : state.allPokemons.filter((el) =>
-          el.types.some((type) => action.payload.includes(type))
-        );
-        return {
-        ...state,
-         pokemon: filtered,
-         };
-        }  
+
+case FILTER_BY_TYPES:
+                let filteredType = [...state.pokemon];
+                    filteredType = state.allPokemons.filter((poke) => {
+                      if (Array.isArray(poke.types)) {
+                        if (poke.types.some((type) => type.name === action.payload)) {
+                          return true;
+                        }
+                        if (poke.types.includes(action.payload)) {
+                          return true;
+                        }
+                      }
+                      return false;
+                    });
+                    if(action.payload === "all"){
+                        filteredType = state.allPokemons
+                    }
+                return {
+                  ...state,
+                  pokemon: filteredType,
+                  filter: action.payload
+                };
+
+        
 
     //actualiza el estado con los pokemons que se crearon en la bd
+
   case FILTER_IF_CREATED: {
    
       const filtrado = action.payload === "created" ? state.allPokemons.filter(el => typeof el.id !== 'number') : state.allPokemons.filter(el=> typeof el.id === 'number')
