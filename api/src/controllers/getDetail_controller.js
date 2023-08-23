@@ -11,9 +11,7 @@ const getById = async (id) =>{
 
    //buscar el pokemon que coincida con el id
    const Pokemon = AllPokemons.find((i)=> i.id.toString() === id);
-
    return Pokemon;
-
 
  };
 

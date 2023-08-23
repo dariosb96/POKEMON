@@ -3,12 +3,11 @@ import { Link } from "react-router-dom";
 import styles from "./card.module.css";
 import Pokemon from "../../Imagenes/Pokemoncreado.png";
 
-export default function Card({ id, name, img, attack, types }) {
+export default function Card({ id, name, img,  types }) {
   return (
    
     <div className={styles.card}>
       <h3>{name}</h3>
-      <h1>"esto es card"</h1>
       <div className={styles.imgcard}>
       {img ? (
         <img src={img} alt="" />

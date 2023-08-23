@@ -8,8 +8,7 @@ import Pagination from "../../Components/Pagination/pagination";
 import { filterByType, filterIfCreated, orderByname, orderByAttack} from "../../Redux/actions";
 import NavBar from "../../Components/NavBar/navbar";
 import style from "./home.module.css";
-
-
+import { debounce } from 'lodash';
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -25,26 +24,44 @@ export default function Home() {
   const indexOfLastPokemon = currentPage * pokemonPerPage
   const indexOfFirstPokemon = indexOfLastPokemon - pokemonPerPage
   const currentPokemon = allPokemon.slice(indexOfFirstPokemon, indexOfLastPokemon)
+  const [isLoading, setIsLoading] = useState(false);
 
+  const [selectedType, setSelectedType] = useState("all");
 
   //funcion para cambiar la pagina actual en la paginacion
+  
   const paginado = (pageNumber) => {
     setcurrentPage(pageNumber);
-  };
+     };
 
+useEffect(() => {
+  setIsLoading(true);
+   let filteredAndSortedData = [...allPokemon];
 
-//// Despachar la acción "getPokemon" cuando el componente se monta o cuando cambia de pagina
- useEffect(() => {
-  dispatch(getPokemon());
-}, [dispatch, currentPage, pokemonPerPage]);
-
+  dispatch(getPokemon(selectedType)) // Fetch data using the selected type
+    .then(() => {
+      if (selectedType !== 'all') {
+        dispatch(filterByType(selectedType)); 
+      }
+      setIsLoading(false);
+    });
+}, [dispatch, currentPage, pokemonPerPage, selectedType]);
 
   // Función para filtrar Pokémon por tipo
-function handleFilterType(e) {
-  e.preventDefault();
-  dispatch(filterByType(e.target.value));
-  setcurrentPage(1);
-}
+
+  
+  const debouncedFilterByType = debounce((type) => {
+    dispatch(filterByType(type));
+  }, 300); // Adjust the debounce delay as needed
+
+  function handleFilterType(e) {
+    e.preventDefault();
+    const newType = e.target.value;
+    setSelectedType(newType);
+    setcurrentPage(1);
+    debouncedFilterByType(newType); // Use the debounced function
+  }
+  
 
 
 //funcion para filtrar pokemones creados
@@ -54,7 +71,6 @@ function handleFilterCreated(e) {
   setcurrentPage(1);
 }
 
-
 // función para ordenar Pokémon por nombre
 function handleSort (e){
   e.preventDefault();
@@ -63,14 +79,18 @@ function handleSort (e){
   setOrden(`Ordenado ${e.target.value}`)
 };
 
-
 //función para ordenar Pokémon por ataque
 function handleAttack(e) {
   e.preventDefault();
   dispatch(orderByAttack(e.target.value));
   setAttack(e.target.value);
   setcurrentPage(1);
+  setOrden(`Ordenado ${e.target.value}`)
 }
+
+
+
+  // Obtener los Pokémon a mostrar en la página actual
 
 
 
@@ -132,7 +152,7 @@ function handleAttack(e) {
         </div> 
         
       </div> 
-      <div div className={style.card}>
+       <div div className={style.card}>
       {currentPokemon?.map((props) =>( 
        
          
@@ -146,9 +166,11 @@ function handleAttack(e) {
         pokemonPerPage={pokemonPerPage}
         allPokemon={allPokemon.length}
         paginado={paginado}
+        currentPage={currentPage}
+        setcurrentPage={setcurrentPage}
         />
         </div>
   <br />
   <br />
     </body>
-) }
+) }   
